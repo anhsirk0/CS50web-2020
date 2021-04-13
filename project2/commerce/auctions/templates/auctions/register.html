@@ -1,0 +1,58 @@
+{% extends 'auctions/layout.html' %}
+
+{% block title %}
+Register - Auctions
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="empty"></div>
+    <h2 class="mytextcolor center">Register</h2>
+    <div class="row">
+        <form action="{% url 'register' %}" method="post" class="col s12">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" name="username" type="text">
+                    <label class="mytextcolor">Username</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" name="email" type="email">
+                    <label class="mytextcolor">Email</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="password" type="password" name="password" class="validate">
+                    <label for="password" class="mytextcolor">Password</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="confirmation" type="password" name="confirmation" class="validate">
+                    <label for="confirmation" class="mytextcolor">Confirm</label>
+                </div>
+            </div>
+
+            <button class="btn btn-large waves-effect waves-light mycolor right" type="submit" name="submit">Register
+            </button>
+        </form>
+    </div>
+    <div style="margin-top: 40px;">
+        <p style="font-size: 20px; margin-left: 10px;">
+            Already have an account? <a href="{% url 'login' %}" class="mytextcolor">Login here.</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% if message %}
+<script>
+    M.toast({ html: '{{message}}', displayLength: 6000, classes: 'white-text' })
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'book/layout.html' %}
+
+{% block title %}
+Register - Hotels
+{% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top: 15px;">
+
+    <h4 class="mycolor-text">Register to get more benefits</h4>
+    <div class="row">
+        <form action="{% url 'register' %}" method="post" class="col s12">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="first_name" name="first_name" type="text" class="validate" required="required">
+                    <label for="first_name" class="mycolor-text">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="last_name" name="last_name" type="text" class="validate">
+                    <label for="last_name" class="mycolor-text">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" name="username" type="text" class="validate" required="required"
+                        pattern="[A-Za-z0-9]{1,20}">
+                    <label for="username" class="mycolor-text">Username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="email" name="email" type="email" class="validate" required="required">
+                    <label for="email" class="mycolor-text">Email</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="phone" name="phone" type="text" class="validate" required="required" pattern="[0-9]{10}">
+                    <label class="mycolor-text">Phone</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="password" type="password" name="password" class="validate" required="required">
+                    <label for="password" class="mycolor-text">Password</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="confirmation" type="password" name="confirmation" class="validate" required="required">
+                    <label for="confirmation" class="mycolor-text">Confirm Password</label>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 0;">
+                <div class=" col s6">
+                    <p style="font-size: 20px;">
+                        Already have an account? <a href="{% url 'login' %}" class="mycolor-text">Log In here.</a>
+                    </p>
+                </div>
+                <div class="col s6">
+                    <button class="btn btn-large waves-effect waves-light mycolor right" type="submit"
+                        name="submit">Register
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

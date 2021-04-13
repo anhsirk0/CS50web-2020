@@ -1,0 +1,152 @@
+html {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Ubuntu', sans-serif;
+	background: white;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+.main {
+	width: 100%;
+	margin: 0px;
+	align-content: left;
+}
+
+.heading {
+	color: red;
+	font-size: 20px;
+	padding-left: 40px;
+}
+
+.nav {
+	background: #F0F2F5;
+	margin:0;
+	padding: 5px 0 0 0 ;
+}
+
+img {
+	width: 80px;
+	padding: 5px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: grey;
+  font-size: 15px;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+.search {
+	margin-top: 20px;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 20px;
+  display: inline-block;
+  font-size:12px;
+}
+
+input[type=submit] {
+  background-color: #4d90fe;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #4487f5;
+}
+
+input[type=text]:focus {
+  border:1px solid #4d90fe;
+  outline:none;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.container {
+  border-radius: 5px;
+  background-color: white;
+  padding-left: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 180px;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 60%;
+  margin-top: 6px;
+}
+
+.row {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 1024px) {
+    .row2 {
+        display: none !important;
+    }
+}
+
+.grid {
+	display: grid;
+	width: 100%;
+	grid-template-columns: minmax(500px,60%) auto;
+}
+
+.grid-item {
+	padding: 0px;
+}
+.exp {
+  float: left;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.exp label {
+  padding: 12px 0;
+  display: inline-block;
+  font-size: 12px;
+  color: #555;
+}

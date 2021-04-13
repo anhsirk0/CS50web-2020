@@ -1,0 +1,36 @@
+{% extends 'book/layout.html' %}
+
+{% block title %}
+{{user.username.capitalize}} | Hotels
+{% endblock %}
+
+
+{% block body %}
+<div class="container" style="margin-top: -50px;">
+    <div class="center" style=" position: relative; bottom:-100px; ">
+        <i class="material-icons center mycolor-text" style="font-size: 200px; margin-top: 22px;">account_circle</i>
+    </div>
+    <div class="row ">
+        <div class="col s6 m6 offset-m3">
+            <div class="card-panel center">
+                <div style="margin-top: 60px;">
+
+                </div>
+                <h5>{{user.username}}</h5>
+                <div class="center">
+                    <div style="margin-top: 20px; font-size: 30px; text-transform: capitalize;">
+                        <p>{{user.first_name}} {{user.last_name}}</p>
+                    </div>
+                    <div style="margin-top: 20px; font-size: 20px">
+                        <p>{{user.email}}</p>
+                    </div>
+                    <div class="row" style="margin-top: 20px; font-size: 20px">
+                        <p>{{user.phone}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "auctions/layout.html" %}
+
+{% block style %}
+<style>
+  .wrapper {
+    padding-left: 300px;
+    position: relative !important;
+    z-index: 1;
+  }
+
+  @media only screen and (max-width : 992px) {
+    .wrapper {
+      padding-left: 0;
+    }
+  }
+</style>
+
+{% endblock style %}
+
+{% block body %}
+<div class="container">
+  <ul class="sidenav sidenav-fixed">
+    <div class="empty"></div>
+    <div class="empty-small"></div>
+    {% for cat in categories %}
+    <li id="{{cat.name.lower}}">
+      <a href="/category/{{cat.name.lower}}" class="waves-effect">
+        <i class="material-icons mytextcolor">{{ cat.icon }}</i>
+        {{ cat.name.capitalize }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+</div>
+
+<div class="wrapper" style="padding: 10px 10px">
+  <div class="hide-on-large-only">
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large mycolor" href="/category/all">
+        <i class="large material-icons">view_comfy</i>
+      </a>
+      <ul>
+        {% for cat in categories %}
+        {% if cat.name.lower != "all" %}
+        <li><a class="btn-floating btn-large mycolor" href="/category/{{ cat.name.lower }}">
+            <i class="material-icons">{{ cat.icon }}</i></a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% if list %}
+  <div class="row">
+    {% for item in list %}
+    <div class="col s4">
+      <div class=" card">
+        <div class="card-image">
+          <img src="{{item.imgurl}}" height="180" alt="{{item.name}}">
+        </div>
+        <div class="card-content">
+          <div class="row" style="margin-bottom: 0">
+            <div class="col s6" style="padding-right: 0">
+              <a href="/item/{{ item.id }}" class="mytextcolor">
+                <h5>{{ item.name }}</h5>
+              </a>
+            </div>
+            <div class="col s6" style="padding-left: 0">
+              <h5><strong>{{item.price}}</strong> $</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div>
+    <div class="empty-big"></div>
+    <div class="empty"></div>
+    <h3 class="mytextcolor center">Items in "{{name}}" category will appear here</h3>
+  </div>
+  {% endif %}
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+  var elems = document.querySelectorAll('.sidenav');
+  M.Sidenav.init(elems, {});
+  var el = document.querySelector('#{{ name }}');
+  el.classList.add('active');
+  var elems = document.querySelectorAll('.fixed-action-btn');
+  M.FloatingActionButton.init(elems, {});
+</script>
+{% endblock script %}

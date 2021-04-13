@@ -1,0 +1,26 @@
+textarea {
+    min-height: 300px;
+}
+
+ul {
+    padding:10px;
+}
+li {
+    display:inline-block;
+    padding: 0 10px;
+}
+
+#timestamp {
+    float: right;
+}
+
+#sender {
+    float: left;
+}
+
+.email {
+    border: 1px solid blue;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}

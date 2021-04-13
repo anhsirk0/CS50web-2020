@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="empty"></div>
+    <div class="row">
+        {% for item in list %}
+        <div class="col s4">
+            <div class=" card">
+                <div class="card-image">
+                    <img src="{{item.imgurl}}" height="180" alt="{{item.name}}">
+                </div>
+                <div class="card-content">
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="col s6">
+
+                            <a href="/item/{{ item.id }}" class="mytextcolor">
+                                <h5>{{ item.name }}</h5>
+                            </a>
+                        </div>
+                        <div class="col s6">
+                            <h5><strong>{{item.price}}</strong> $</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

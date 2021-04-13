@@ -1,0 +1,134 @@
+{% extends "book/layout.html" %}
+{% load book_extras %}
+{% load static %}
+
+{% block title %}
+{{hotel.name.capitalize}} | Hotels
+{% endblock %}
+
+{% block body %}
+
+<div class="row" style="margin-top: 15px; margin-bottom: 0;">
+    <input type="hidden" class="original-price" style="visibility: hidden; height: 0px;" value={{hotel.price}}>
+    <span class="calendar s12"></span>
+    <div class="col s12 m12 l8">
+        <section class="slider">
+            <ul class="slides">
+                {% for img in hotel|get_images %}
+                <li>
+                    <img src="{{ img }}">
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+
+    <div class="col l4 m12 s12">
+        <div class="card-panel fixed">
+            <form action="/book" method="POST">
+                {% csrf_token %}
+                <input type="hidden" class="hotel-id" name="id" style="visibility: hidden; height: 0px;"
+                    value={{hotel.id}}>
+                {% get_date as d %}
+                <label class=" mycolor-text">Check In</label>
+                <input type="text" class="datepicker" name="checkin" value="{{d}}" onchange="createPrice()">
+
+                {% get_next_date as nd %}
+                <label class="mycolor-text">Check Out</label>
+                <input type="text" class="datepicker2" name="checkout" value="{{nd}}" onchange="createPrice()">
+
+                <div style="height:30px"></div>
+                <div class="input-field">
+                    <select name="room" onchange="createPrice()">
+                        <option value="1" selected>1</option>
+                        {% for i in 5|make_range:2 %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="mycolor-text">Rooms</label>
+                </div>
+
+                <div class="input-field">
+                    <select name="adult" onchange="createPrice()">
+                        <option value="1" selected>1</option>
+                        {% for i in 6|make_range:2 %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="mycolor-text">Adults</label>
+                </div>
+
+                <div class="input-field">
+                    <select name="child" onchange="createPrice()">
+                        <option value="0" selected>0</option>
+                        {% for i in 6|make_range:1 %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="mycolor-text">Children</label>
+                </div>
+
+                <div style="height:30px"></div>
+                <input type="hidden" id="days" name="days" value="1">
+                <div style="height: 60px">
+
+                    <span class="flow-text left" style="font-size: 34px;">
+                        &#8377; <span class="hotel-price">{{hotel.price}}</span>
+                    </span>
+                    <button class="btn btn-large waves-effect waves-light mycolor right" type="submit"
+                        onclick="myfunc()" name="submit">Book now
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m12 l8">
+        <div class="card-panel">
+            <div class="row">
+                <div class="col s6 m6 l6">
+                    <h4 style="margin-top: 0;">{{hotel.name}}</h4>
+                    <h6 class="truncate">{{ hotel.address }}</h6>
+                </div>
+                <div class="col s4 m4 l4 right">
+
+                    {% for i in hotel|get_stars %}
+                    <i class="material-icons"
+                        style="color: {% if i == 1 %} gold {% else %} grey {% endif%}; font-size: 2.4rem;">stars</i>
+                    {% endfor %}
+                    <h5 style="margin-top: 6px;">&#8377; {{hotel.price}} <span
+                            style="font-size: 14px; padding-left: 16px;">Per night</span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="card-panel s12 m12 l8">
+            <h5>Highlights</h5>
+            {% for h in hotel|get_highlights %}
+            <div class="chip green white-text">{{ h }}</div>
+            {% endfor %}
+        </div>
+        <div class="card-panel s12">
+            <h5 class="flow-text">Overview</h5>
+            <p>{{ hotel|get_overview }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'book/hotel.js' %}"></script>
+<script>
+    var x = "{{hotel.id}}";
+
+    function myfunc() {
+        document.querySelector('.hotel-id').value = x;
+    }
+
+</script>
+{% endblock %}

@@ -1,0 +1,160 @@
+{% load static %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Auctions{% endblock %}</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+        integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+        integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"></script>
+
+    <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+    <script src="{% static 'auctions/layout.js' %}"></script>
+
+
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+
+
+    <!-- Navbar -->
+    <div class="navbar navbar-fixed">
+        <nav class="mycolor">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="{% url 'index' %}" class="brand-logo">Auctions</a>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="hide-on-med-and-down right">
+                        <li id="home">
+                            <a href="{% url 'index' %}">Home</a>
+                        </li>
+
+                        <li>
+                            <a href="/category/all">Categories</a>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'create_list' %}">Create Listing</a>
+                        </li>
+                        {% with w=user.watchlist.first.item.all.count %}
+                        <li>
+                            <a href="{% url 'watchlist'  %}">Watchlist
+                                {% if w > 0 %}
+                                <span class="new badge" data-badge-caption="item">{{ w }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                        {% endwith %}
+                        {% load auctions_extras %}
+                        {% with n=user|get_unseen %}
+                        <li>
+                            <a href="{% url 'notification' %}">Notification
+                                {% if n > 0 %}
+                                <span class="new badge">{{ n }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                        {% endwith %}
+                        <li>
+                            <a href="{% url 'logout' %}">Logout {{ user.username.capitalize }}
+                            </a>
+                        </li>
+
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'register' %}">Register</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <ul class="sidenav" id="slide-out">
+            <li id="home">
+                <a href="{% url 'index' %}">Home</a>
+            </li>
+
+            <li>
+                <a href="/category/all">Categories</a>
+            </li>
+
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'create_list' %}">Create Listing</a>
+            </li>
+            {% with w=user.watchlist.first.item.all.count %}
+            <li>
+                <a href="{% url 'watchlist'  %}">Watchlist
+                    {% if w > 0 %}
+                    <span class="new badge" data-badge-caption="item">{{ w }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endwith %}
+            {% load auctions_extras %}
+            {% with n=user|get_unseen %}
+            <li>
+                <a href="{% url 'notification' %}">Notification
+                    {% if n > 0 %}
+                    <span class="new badge">{{ n }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endwith %}
+            <li>
+                <a href="{% url 'logout' %}">Logout {{ user.username.capitalize }}
+                </a>
+            </li>
+
+            {% else %}
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+            <li>
+                <a href="{% url 'register' %}">Register</a>
+            </li>
+            {% endif %}
+        </ul>
+        </ul>
+    </div>
+    <div class="wrapper">
+
+        {% block body %}
+        {% endblock %}
+    </div>
+
+</body>
+<script>
+    var elems = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elems, {});
+</script>
+{% block script %}
+
+{% endblock %}
+
+</html>

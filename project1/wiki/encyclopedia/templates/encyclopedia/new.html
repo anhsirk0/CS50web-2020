@@ -1,0 +1,81 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block style %}
+<style>
+form {
+    margin: 0;
+    padding: 0;
+}
+.title {
+    width: 200px;
+    padding: 8px;
+    margin-left: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+
+}
+
+.content {
+    width: 80%;
+    padding: 8px;
+    margin-left: 12px;
+    height: 540px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.row {
+    margin-right: 0px;
+}
+
+.submit {
+    padding: 6px;
+    margin: 26px;
+}
+
+#already {
+    color : red;
+    width : 200px;
+    display: inline-block;
+    padding-left: 16px;
+
+}
+
+::placeholder {
+    align: top;
+}
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    var arr = {{ entries|safe }};
+    check = function(value){
+        if (arr.map(a => a.toLowerCase()).includes(value.toLowerCase()))
+        {
+            document.getElementById("already").innerHTML = "Entry Already Exists";
+            document.getElementById('submitbutton').disabled = true;
+        }
+        else
+        {
+            document.getElementById("already").innerHTML = "";
+            document.getElementById('submitbutton').disabled = false;
+        }
+    }
+</script>
+{% endblock %}
+
+
+{% block body %}
+<form action="/new" method="post">
+    {% csrf_token %}
+    <input type="text" class="title" name="title" placeholder="Title" onfocusout="check(this.value)" value="{{ title }}">
+    <p id="already"></p>
+    <textarea type="text" name="content" class="content" placeholder="Content">{{ content }}</textarea>
+    <input type="submit" class="submit" id="submitbutton" value="Submit">
+</form>
+{% endblock %}

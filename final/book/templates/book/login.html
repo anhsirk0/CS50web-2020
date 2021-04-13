@@ -1,0 +1,47 @@
+{% extends 'book/layout.html' %}
+
+{% block title %}
+Login - Hotels
+{% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top: 50px; margin-bottom: 0;">
+    <div class="empty"></div>
+    <h2 class="mycolor-text">Welcome!</h2>
+    <div class="row">
+        <form action="{% url 'login' %}" method="post" class="col s12">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" name="username" type="text">
+                    <label class="mycolor-text">Username</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" name="password" class="validate">
+                    <label for="password" class="mycolor-text">Password</label>
+                </div>
+            </div>
+
+            <button class="btn btn-large waves-effect waves-light mycolor right" type="submit" name="submit">Login
+            </button>
+        </form>
+    </div>
+    <div style="margin-top: 40px;">
+        <p style="font-size: 20px; margin-left: 10px;">
+            Don't have an account? <a href="{% url 'register' %}" class="mycolor-text">Register here.</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% if message %}
+<script>
+    M.toast({ html: '{{message}}', displayLength: 6000, classes: 'white-text' })
+</script>
+{% endif %}
+{% endblock %}

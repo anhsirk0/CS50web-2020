@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Social Network{% endblock %}</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+        integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+        integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"></script>
+
+    <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+    <script src="{% static 'network/layout.js' %}"></script>
+
+
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <div class="navbar-fixed">
+            <nav class="mycolor">
+                <div class="container">
+                    <div class="nav-wrapper">
+                        <a href="{% url 'index' %}" class="brand-logo">Network</a>
+                        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+                            <i class="material-icons">menu</i>
+                        </a>
+                        <ul class="hide-on-med-and-down right">
+                            <li id="home">
+                                <a href="{% url 'index' %}">Home</a>
+                            </li>
+
+                            {% if user.is_authenticated %}
+                            <li id="following">
+                                <a href="{% url 'following'  %}">Following</a>
+                            </li>
+                            <li id="profile">
+                                <a href="/profile/{{user.username}}">Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}">Logout
+                                </a>
+                            </li>
+
+                            {% else %}
+
+                            <li id="login">
+                                <a href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li id="register">
+                                <a href="{% url 'register' %}">Register</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <ul class="sidenav" id="mobile-nav">
+            <li>
+                <a href="{% url 'index' %}">
+                    <p style="font-size: 20px;">Home</p>
+                </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'following' %}">
+                    <p style="font-size: 20px;">Following</p>
+                </a>
+            </li>
+            <li>
+                <a href="/profile/{{user.username}}">
+                    <p style="font-size: 20px;">Profile</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">
+                    <p style="font-size: 20px;">Logout</p>
+                </a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'login' %}">
+                    <p style="font-size: 20px;">Login</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'register' %}">
+                    <p style="font-size: 20px;">Register</p>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+
+        {% block body %}
+        {% endblock %}
+    </div>
+
+</body>
+
+
+
+{% block script %}
+
+{% endblock %}
+
+</html>

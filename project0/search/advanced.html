@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search</title>
+        <link rel="icon" type="image/png" href="favicon.png"/>
+        <link rel="stylesheet" href="advance.css">
+    </head>
+    <body>
+        <div class="nav">
+            <ul>
+              <img src="logo.png" alt="logo">
+              <li><a href="search-images.html">Image Search</a></li>
+              <li><a href="index.html">Google Search</a></li>
+            </ul>
+        </div>
+        <p class="heading">Advanced Search</p>
+        <div class="grid">
+            <div class="grid-item">
+                <p style="margin-left: 40px;">Find pages with...</p>
+                <div class="container">
+                    <form action="https://google.com/search">
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="fname">all these words:</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text"  name="as_q" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="lname">this exact word or phrase:</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text"  name="as_epq" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="lname">any of these words:</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text"  name="as_oq" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="lname">none of these words:</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text"  name="as_eq" >
+                                <input type="submit" class="search" id="search" value="Advanced Search">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="grid-item" style="float: left">
+                <div class="row2">
+                    <p style="margin-left: 4px;color:#777777">To do this in the search box.</p>
+                    <div class="exp">
+                        <label for="fname">Type the important words: tri-colour rat terrier</label>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="exp">
+                        <label for="lname">Put exact words in quotes: "rat terrier"</label>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="exp">
+                        <label for="lname">Type OR between all the words you want: miniature OR standard</label>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="exp">
+                        <label for="lname">Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"</label>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+<!-- https://www.google.com/search?as_q=all&as_epq=exact&as_oq=any&as_eq=none&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=&as_occt=any&safe=images&as_filetype=&tbs= -->

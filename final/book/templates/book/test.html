@@ -1,0 +1,31 @@
+{% extends 'book/layout.html' %}
+
+{% block title %}
+Test
+{% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top: 40px">
+    <div class="row m6" style=" margin-bottom: 0;">
+        <div class="center" style="margin-top: 20px;  position: relative; bottom:-46px; ">
+            <a class="btn-floating btn-large waves-effect waves-light green" style="width: 100px; height: 100px">
+                <i class="material-icons center" style="font-size: 4.4rem; margin-top: 22px;">done</i>
+            </a>
+        </div>
+        <div class="row " style="margin-bottom: 0;">
+            <div class="col s6 m6 offset-m3">
+                <div class="card-panel center">
+                    <h4>Successful !</h4>
+                    <p style="margin-top: 50px; font-size: 20px">
+                        Your booking has been confirmed, check your mail for more details
+                    </p>
+                    <p style="margin-top: 30px; font-size: 25px; font:weight: bold">
+                        Tracking Id : 473243993
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

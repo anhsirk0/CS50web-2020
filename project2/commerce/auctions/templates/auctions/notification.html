@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container">
+    {% if list %}
+    <div class="empty"></div>
+    <div class="row">
+
+        <div class="col s10 offset-s1">
+            {% for i in list %}
+            <div class="card {{ i.color }} lighten-2">
+                <div class="card-content">
+                    <div class="row" style="margin-bottom: 0;">
+                        <div class="col s10">
+                            <p class="flow-text">{{ i.text }}</p>
+                        </div>
+                        <div class="col s2">
+                            <a href="/item/{{ i.item.id }}">
+                                <button class="btn right {{ i.color }} lighten-3 black-text">
+                                    View
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="zero">
+            <h1>Your notifications will appear here</h1>
+        </div>
+        {% endif %}
+    </div>
+
+
+    {% endblock %}

@@ -1,0 +1,221 @@
+{% extends "network/layout.html" %}
+
+{% block title %}
+{{profile.first_name.capitalize}} {{profile.last_name.capitalize}} - Network
+{% endblock title %}
+
+{% load static %}
+{% block style %}
+<style>
+    img.profile-pic {
+        /* width: 300px !important; */
+        height: 350px !important;
+        object-fit: cover !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+{% load network_extras %}
+<div class="container">
+    <div class="row">
+        <div class="col s12 ">
+            <div class="card z-depth-2">
+                <div class="card-image center">
+                    <img class="profile-pic" src="{{profile.imgurl}}">
+                    <!-- <span class="card-title">Card Title</span> -->
+                    {% if user != profile  %}
+                    {% if is_follower %}
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light mycolor follow tooltipped"
+                        data-position="top" data-tooltip="Unfollow {{profile.first_name}}">
+                        <i class="material-icons follow-icon">
+                            remove
+                        </i>
+                    </a>
+                    {% else %}
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light mycolor follow tooltipped"
+                        data-position="top" data-tooltip="Follow {{profile.first_name}}">
+                        <i class="material-icons follow-icon">
+                            add
+                        </i>
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+                <div class="card-content" style="padding-top: 0px; padding-bottom: 5px;">
+                    <h4 class="mycolor-text">{{profile.first_name.capitalize}}
+                        {{profile.last_name.capitalize}}</h4>
+                    <div id="about">
+                        <div class="row" style="margin-bottom: 0;">
+                            <div class="col s4">
+                                <h6 class="mycolor-text">@<strong id="username">{{profile.username}}</strong></h6>
+                            </div>
+                            <div class="col s4 ">
+                                <a class="right waves-effect mycolor-text follower-count"
+                                    style="padding: 10px">{{ profile.following.all.count }} Followers</a>
+                            </div>
+                            <div class="col s4 ">
+                                <a class="right waves-effect mycolor-text following-count"
+                                    style="padding: 10px">{{ profile.follower.all.count }} Following</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for post in page_obj %}
+    <div class="row">
+        <div class="col s12">
+            <div class="card ">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s1">
+                            <img class="avatar-post" src="{{post.owner.imgurl}}">
+                        </div>
+                        <div class="col s10">
+                            <a class="name-post" href="/profile/{{post.owner.username}}">{{post.owner.first_name}}
+                                {{post.owner.last_name}}</a>
+                            <span class="tooltipped right time-post" data-position="right" data-tooltip="{{post.date}}">
+                                {{ post.date|get_time }}</span>
+                        </div>
+                    </div>
+                    <!-- <hr> -->
+                    <p class="post-text" id="post-{{post.id}}">{{post.text}}</p>
+                    {% if not user.is_authenticated %}
+                    <div class=" card-content ">
+                        <h4 class="grey-text lighten-3 left like-count">{{post.like.all.count}}
+                            <i class="material-icons mycolor-text like-icon">favorite_fill</i>
+                        </h4>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if user.is_authenticated %}
+                <div class="card-action" style="padding-bottom: 0;">
+                    <div class="row" style="margin-bottom: 0;">
+                        <div class="col s1 like">
+                            <span id="like-btn" style="cursor: pointer;" data-id="{{post.id}}">
+                                <i class="material-icons mycolor-text like-icon">
+                                    {% if post.id in liked_posts %}
+                                    favorite_fill
+                                    {% else %}
+                                    favorite_border
+                                    {% endif %}
+                                </i>
+                            </span>
+                        </div>
+                        <div class="col s1">
+                            <h4 class="grey-text lighten-3 left like-count">{{post.like.all.count}}</h4>
+                        </div>
+                        {% if user == post.owner %}
+                        <div class="col right s1">
+                            <a class="modal-trigger waves-effect tooltipped edit-post" data-tooltip="Edit post"
+                                data-position="right" data-target="modal-edit" style="padding: 10px;">
+                                <i class="material-icons mycolor-text lighten-3">
+                                    mode_edit
+                                </i>
+                            </a>
+                        </div>
+                        <div id="modal-edit" class="modal" style="outline:none">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <div class="input-field col s12 ">
+                                        <textarea id="{{post.id}}" type="text" class="materialize-textarea edit-text"
+                                            spellcheck="false" required
+                                            style="font-size: 30px;">{{post.text}}</textarea>
+                                        <label class="mycolor-text">Edit post</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn waves-effect waves-light mycolor center modal-close"
+                                    id="submit-edit">Save
+                                </button>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if page_obj.has_next or page_obj.has_previous %}
+        <div class="pagination center ">
+            <ul>
+                {% if page_obj.has_previous %}
+                <li class="waves-effect"><a href="?page={{ page_obj.previous_page_number }}"><i
+                            class="material-icons">chevron_left</i></a></li>
+                {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                {% endif %}
+
+
+                {% for p in page_obj.paginator.num_pages|make_range %}
+                {% if p|add:'1' == page_obj.number %}
+                <li class="active mycolor"><a href="#!">{{ page_obj.number }}</a></li>
+                {% else %}
+                <li class="waves-effect"><a href="?page={{ p|add:'1' }}">{{p|add:'1'}}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="waves-effect"><a href="?page={{ page_obj.next_page_number }}"><i
+                            class="material-icons">chevron_right</i></a></li>
+                {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if user == profile %}
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large mycolor modal-trigger tooltipped" data-target="modal1" data-position="left"
+            data-tooltip="Edit profile" name="edit-profile">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal" style="outline:none">
+        <form action="/update" method="post">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="fname" name="fname" type="text" required value="{{profile.first_name.capitalize}}">
+                        <label class="mycolor-text">First name</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="lname" name="lname" type="text" required value="{{profile.last_name.capitalize}}">
+                        <label class="mycolor-text">Last name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="imgurl" name="imgurl" type="text" class="validate" required="required">
+                        <label class="mycolor-text">Profile Image</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn waves-effect waves-light mycolor center" type="submit" name="submit">Save
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% endif %}
+
+    {% endblock %}
+
+    {% block script %}
+    <script src="{% static 'network/profile.js' %}"></script>
+    {% endblock script %}

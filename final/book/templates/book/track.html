@@ -1,0 +1,116 @@
+{% extends 'book/layout.html' %}
+
+{% block title %}
+Track - Hotels
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+    <div class="empty"></div>
+
+    {% if message %}
+    <div class="center">
+        <h4 class="red">{{message}}</h4>
+    </div>
+    {% endif %}
+
+    {% if booking %}
+    <div class="row center" style="margin-top: 50px;">
+        <h4 class="mycolor-text">Booking : {{booking.tracking_id}}</h4>
+    </div>
+    <div style="margin-top: 15px;">
+        <div class="row">
+            <div class="col s12">
+                <ul class="collection">
+                    <li class="collection-item">
+                        <p>Hotel</p>
+                        <h5 class="mycolor-text">{{booking.hotel.name}}</h5>
+                    </li>
+                    <hr style="opacity: 0.3;">
+                    <li class="collection-item">
+                        <p>Booked by</p>
+                        <div class="col s12 m4">
+                            <h5 class="mycolor-text">{{booking.first_name.capitalize}} {{booking.last_name.capitalize}}
+                            </h5>
+                        </div>
+                        <div class="col s12 m5">
+                            <h5 class="mycolor-text">{{booking.email}}</h5>
+                        </div>
+                        <div class="col s12 m3">
+                            <h5 class="mycolor-text">{{booking.phone}}</h5>
+                        </div>
+
+
+                    </li>
+                    <div class="row">
+                        <div class="col s6">
+                            <li class="collection-item">
+                                <p>Checkin Date</p>
+                                <h5 class="mycolor-text">{{booking.checkin_date}}</h5>
+                            </li>
+                        </div>
+                        <div class="col s6">
+                            <li class="collection-item">
+                                <p>Checkout Date</p>
+                                <h5 class="mycolor-text">{{booking.checkout_date}}</h5>
+                            </li>
+                        </div>
+                    </div>
+                    <hr style="opacity: 0.3;">
+
+                    <div class="row">
+                        <div class="col s4">
+                            <li class="collection-item">
+                                <p>Rooms</p>
+                                <h5 class="mycolor-text">{{booking.room}}</h5>
+
+                            </li>
+                        </div>
+                        <div class="col s4">
+                            <li class="collection-item">
+                                <p>Adults</p>
+                                <h5 class="mycolor-text">{{booking.adult}}</h5>
+                            </li>
+                        </div>
+                        <div class="col s4">
+                            <li class="collection-item">
+                                <p>Children</p>
+                                <h5 class="mycolor-text">{{booking.child}}</h5>
+                            </li>
+                        </div>
+                    </div>
+                    <hr style="opacity: 0.3;">
+                    <li class="collection-item">
+                        <p>Booking Date</p>
+                        <h5 class="mycolor-text">{{booking.booking_date}}</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row center" style="margin-top: 50px;">
+        <h3 class="mycolor-text">Track your booking</h3>
+    </div>
+    <div class="card-panel">
+        <form action="/track" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="tracking" type="text" name="tracking-id" required>
+                    <label class="mycolor-text">Tracking ID</label>
+
+                </div>
+                <div class="input-field col s12">
+                    <input id="phone" type="text" name="phone" required>
+                    <label class="mycolor-text">Phone number</label>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn-large btn waves-effect right">Track</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock body %}

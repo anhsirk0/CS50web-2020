@@ -1,0 +1,77 @@
+:root {
+    --primary-color: #3f51b5; 
+}
+
+body {
+    padding: 0;
+    margin:0;
+    height:100%;
+}
+
+.count {
+    background-color: grey;
+    padding: 1px 4px;
+    border-radius: 5px;
+}
+
+.mycolor {
+background: var(--primary-color) !important;
+}
+
+.mytextcolor {
+    color: var(--primary-color) !important;
+}
+
+.empty {
+    height: 46px;
+}
+.empty-big {
+    height: 76px;
+}
+
+.empty-small {
+  height: 20px;
+}
+
+/* label color */
+.input-field label {
+  color: var(--primary-color) !important;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: var(--primary-color) !important;
+}
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid var(--primary-color) !important;
+  box-shadow: 0 1px 0 0 var(--primary-color) !important;
+}
+
+.input-field input:focus {
+  border-bottom: 1px solid var(--primary-color) !important;
+  box-shadow: 0 1px 0 0 var(--primary-color) !important;
+}
+
+/* valid color */
+.input-field input.valid {
+  border-bottom: 1px solid var(--primary-color) !important;
+  box-shadow: 0 1px 0 0 var(--primary-color) !important;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: var(--primary-color) !important;
+}
+
+.dropdown-content li>a, .dropdown-content li>span {
+  color: var(--primary-color) !important;
+}
+
+.select-dropdown li.disabled, .select-dropdown li.disabled>span, .select-dropdown li.optgroup {
+  color: grey !important;
+}
+
+.chip {
+  position: relative !important;
+  bottom: 12px !important;
+}

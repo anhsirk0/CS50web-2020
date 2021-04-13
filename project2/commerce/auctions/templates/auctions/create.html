@@ -1,0 +1,54 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="empty-small"></div>
+    <div class="empty-big"></div>
+    <form action="{% url 'create_list' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s6">
+                <input name="name" type="text">
+                <label class="mytextcolor">Item name</label>
+            </div>
+
+            <div class="input-field col s6">
+                <input name="price" type="number" step="any">
+                <label class="mytextcolor">Price ($)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="about" type="text">
+                <label class="mytextcolor">Description</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <select name="category">
+                    <option disabled selected value="">Choose</option>
+                    {% for row in rows %}
+                    <option value="{{ row }}">{{ row.capitalize }}</option>
+                    {% endfor %}
+                </select>
+                <label>Category</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="url" type="text">
+                <label class="mytextcolor">Image url</label>
+            </div>
+        </div>
+        <button class="btn btn-large waves-effect waves-light mycolor right" type="submit" name="submit">Create
+        </button>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems, {});
+</script>
+{% endblock script %}

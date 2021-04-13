@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Paytm</title>
+</head>
+<body>
+    <h1>Merchant Check Out Page</h1>
+    <h1>Please do not refresh this page</h1>
+    <form action="https://securegw-stage.paytm.in/order/process" method="post" name="f1">
+        {% for key, value in param_dict.items %}
+        <input type="hidden" name="{{key}}" value="{{value}}">
+        {% endfor %}
+    </form>
+
+</body>
+<script>
+    document.f1.submit();
+</script>
+</html>

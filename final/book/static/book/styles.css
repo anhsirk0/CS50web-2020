@@ -1,0 +1,109 @@
+:root {
+    --primary: #2196f3;
+    /* --primary-dark:  #2196f3; */
+}
+
+.wrapper {
+    min-height: calc(100vh - 130px) !important;
+}
+
+.myfooter {
+    width: 100% !important;
+    bottom: 0 !important;
+    height: 130px !important;
+}
+
+.section-search input {
+    padding: 5px !important;
+    font-size: 18px !important;
+    width: 90% !important;
+    border: #f4f4f4 3px solid !important;
+}
+
+.mycolor {
+    background-color: var(--primary) !important;
+}
+
+.mycolor-text {
+    color: var(--primary) !important;
+}
+
+#topbarsearch .input-field .prefix {
+    width: 0rem !important;
+}
+
+#topbarsearch nav ul li:hover, nav ul li.active {
+    background-color: none !important;
+}
+
+.input-field .prefix~input, .input-field .prefix~textarea, .input-field .prefix~label, .input-field .prefix~.validate~label, .input-field .prefix~.autocomplete-content {
+    margin-left: 2rem !important;
+}
+
+.input-field input {
+    border-bottom: 1px solid var(--primary) !important;
+    box-shadow: 0 1px 0 0 var(--primary) !important;
+}
+
+.input-field input:focus+label {
+    color: var(--primary) !important;
+}
+
+.input-field .prefix {
+    top: 0 !important;
+}
+
+.fa-2x {
+    margin: 5px 5px !important;
+}
+
+.social, .contact {
+    padding-top: 12px !important;
+}
+
+@media only screen and (min-width: 890px) {
+    .fixed {
+        position: fixed !important;
+        margin-right: 15px !important;
+    }
+}
+
+/* .upbutton {
+    display: none !important;
+} */
+.modal {
+    outline: none !important;
+}
+
+.datepicker-date-display {
+    width: 14rem !important;
+    background-color: var(--primary) !important;
+}
+
+.select-month .select-dropdown {
+    width: 6rem !important;
+}
+
+.date-text {
+    word-wrap: break-word !important;
+}
+
+.datepicker-table td.is-selected {
+    background-color: var(--primary) !important;
+}
+
+.datepicker-cancel, .datepicker-done {
+    color: var(--primary) !important;
+}
+
+.datepicker, .datepicker2 {
+    font-size: 20px !important;
+    letter-spacing: 1px !important;
+}
+
+.empty {
+    height: 40px ;
+}
+.empty-small {
+    height: 20px ;
+}

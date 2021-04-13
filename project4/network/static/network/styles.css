@@ -1,0 +1,74 @@
+:root {
+    --primary: #673ab7;
+    /* --primary-dark:  #2196f3; */
+}
+
+.mycolor {
+    background-color: var(--primary) !important;
+}
+
+.mycolor-text {
+    color: var(--primary) !important;
+}
+
+.wrapper {
+    min-height: calc(100vh - 130px) !important;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    object-fit:cover;
+    margin-top:10px; 
+    /* border: 1px solid black; */
+    border-radius:50%;
+}
+
+.avatar-post {
+    width: 30px;
+    height: 30px;
+    object-fit:cover;
+    /* border: 1px solid black; */
+    border-radius:50%;
+}
+
+.name-post {
+    font-size: 18px ;
+    font-weight: 2px;
+    margin-top: 40px;
+    color: black;
+    /* margin-left: 20px !important; */
+}
+
+.post-text {
+    font-size: 28px ;
+}
+
+.input-field input , textarea:focus {
+    border-bottom: 1px solid var(--primary) !important;
+    box-shadow: 0 1px 0 0 var(--primary) !important;
+}
+
+.input-field input:focus+label  {
+    color: var(--primary) !important;
+}
+
+
+.section-search input {
+    padding: 5px !important;
+    font-size: 18px !important;
+    width: 90% !important;
+    border: #f4f4f4 3px solid !important;
+}
+
+.like i {
+font-size: 40px;
+margin-top: 10px;
+}
+
+.like-count {
+    position: relative;
+    top : -8px;
+    left: -5px;
+}
+

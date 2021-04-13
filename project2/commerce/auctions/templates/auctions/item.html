@@ -1,0 +1,114 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="empty-small"></div>
+    <div class="row">
+        <div class="col s12 m12 l6">
+            <div class="empty"></div>
+            <img src="{{item.imgurl}}" height="320vw">
+
+        </div>
+        <div class="col s12 m12 l5 offset-l1">
+            <h3 class="mytextcolor">{{ item.name }}
+                {% if item.winner == user and not item.active%}
+                <span class="chip green lighten-3">You won the item</span>
+                {% else %}
+                {% if item.active %}
+                <span class="chip green lighten-2">active</span>
+                {% else %}
+                <span class="chip red lighten-2">unactive</span>
+                {% endif %}
+                {% endif %}
+                {% if in_watchlist %}<span class="chip">watchlist</span>{% endif %}
+            </h3>
+            <h3 class="price" style="margin-top: 0;"><strong>{{ item.price }} $</strong></h3>
+            <p class="flow-text">{{item.about.capitalize}}</p>
+
+            <ul>
+                <li>
+                    {% load auctions_extras %}
+                    {% with date=item.created_on|get_date %}
+                    <h6>Listed by : {{item.owner.username}} on {{ date }}</h6>
+                    {% endwith %}
+                </li>
+                <li>
+                    <h6>Category : {{item.category}}</h6>
+                </li>
+            </ul>
+            {% if item.owner == request.user %}
+            <form method="post">
+                {% csrf_token %}
+                {% if item.active %}
+                <input type="hidden" name="state" value="unactive">
+                <input type="submit" class="btn red" name="active_btn" value="Make Unactive">
+                {% endif %}
+            </form>
+            {% endif %}
+            <form action="add_watchlist/{{item.id}}" method="get">
+                {% csrf_token %}
+                {% if in_watchlist %}
+                <input type="hidden" name="do" value="remove">
+                <input style="margin-top:10px" type="submit" class="btn red" value="Remove from watchlist">
+                {% else %}
+                <input type="hidden" name="do" value="add">
+                <input style="margin-top:10px" type="submit" class="btn mycolor" value="Add to Watchlist">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <div class="card-panel center">
+                <h5>{{item.bids.all.count}} bid(s) so far.
+                    {% if item.winner == user %}
+                    Your bid (<strong>{{ item.max_bid }} $</strong>) is the current bid</p>
+                    {% else %}
+                    {% if item.max_bid != 0 %}
+                    {{item.max_bid}} $ is the current bid (by {{item.winner}})
+                    {% endif %}
+                    {% endif %}
+                </h5>
+                {% if item.owner != user %}
+                {% if item.active %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-field">
+                        <input type="hidden" name="item" value="{{ item.id }}">
+                        <input type="number" steps="any" placeholder="Place bid">
+                    </div>
+                    <input type="submit" value="Place Bid" class="btn mycolor">
+                </form>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel center">
+                    {% if item.active %}
+                    <div class="row">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="input-field col s10">
+                                <input id="comment" name="comment" type="text">
+                                <label class="mytextcolor">Add comment</label>
+                            </div>
+                            <div class="col s2">
+                                <input type="submit" name="comment_btn" class="btn btn-large mycolor" value="Comment">
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                    <p>{{item.comment.all.count}} comment(s) so far.</p>
+                    {% for comment in item.comment.all reversed %}
+                    <p class="flow-text"><strong>{{comment.commented_by}} : </strong> {{ comment.text.capitalize }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
