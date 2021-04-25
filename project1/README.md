@@ -1,10 +1,17 @@
-# Search (project0)
+# Wiki (project1)
 
-## Frontend for Google Search, Google Image Search, and Google Advanced Search.
+## Design a Wikipedia-like online encyclopedia.
 Screenshots
 
-### Google search
-![search1.png](https://github.com/anhsirk0/CS50web-2020/blob/master/project0/screenshots/search1.png)
+### Homepage
+![home.png](https://github.com/anhsirk0/CS50web-2020/blob/master/project0/screenshots/home.png)
 
-### Advanced search
-![search2.png](https://github.com/anhsirk0/CS50web-2020/blob/master/project0/screenshots/search2.png)
+### Entry page
+![entry.png](https://github.com/anhsirk0/CS50web-2020/blob/master/project0/screenshots/entry.png)
+
+### New entry page
+![new.png](https://github.com/anhsirk0/CS50web-2020/blob/master/project0/screenshots/new.png)
+
+### Edit Page
+![edit.png](https://github.com/anhsirk0/CS50web-2020/blob/master/project0/screenshots/edit.png)
+
