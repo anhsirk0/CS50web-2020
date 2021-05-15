@@ -11,7 +11,6 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username}"
 
-
 class Auction_item(models.Model):
     categories = [
         ("books", "books"),

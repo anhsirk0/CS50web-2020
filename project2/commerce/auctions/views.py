@@ -7,10 +7,11 @@ from django.urls import reverse
 
 from .models import *
 
+
 @login_required(login_url="login")
 def create_list(request):
     categories = [i[0] for i in Auction_item.categories]
-    if request.method=="POST":
+    if request.method == "POST":
         name = request.POST["name"].capitalize()
         price = float(request.POST["price"])
         about = request.POST["about"].capitalize()
@@ -18,7 +19,7 @@ def create_list(request):
         category = request.POST["category"]
         owner = request.user
         item = Auction_item(name=name, price=price, owner=owner,
-                           imgurl=imgurl, about=about, category=category)
+                            imgurl=imgurl, about=about, category=category)
         item.save()
         return HttpResponseRedirect(reverse("index"))
     return render(request, "auctions/create.html", {"rows": categories})
@@ -35,7 +36,7 @@ def item_view(request, id):
             in_watchlist = True
             break
 
-    if request.method=="POST":
+    if request.method == "POST":
         if "bid_btn" in request.POST:
             bid_value = float(request.POST["bid_value"])
             max_bid = item.max_bid
@@ -52,11 +53,12 @@ def item_view(request, id):
                 q.bid = bid_value
                 q.save()
             text = f"{user.username} placed a bid of {bid_value}$ on item '{item.name}'"
-            Notification(user=item.owner, text=text, item=item, type="bid", color="blue").save()
+            Notification(user=item.owner, text=text, item=item,
+                         type="bid", color="blue").save()
 
         if "comment_btn" in request.POST:
             text = request.POST["comment"]
-            c = Comment(text=text,commented_by=user,item=item)
+            c = Comment(text=text, commented_by=user, item=item)
             c.save()
             text = f"{user.username} commented on item - '{item.name}'"
             Notification(user=item.owner, text=text,
@@ -73,8 +75,8 @@ def item_view(request, id):
                                  item=item, type="win", color="green").save()
 
     return render(request, "auctions/item.html", {
-    "item":item,
-    "in_watchlist":in_watchlist,
+        "item": item,
+        "in_watchlist": in_watchlist,
     })
 
 
@@ -97,7 +99,7 @@ def watchlist(request):
     user = request.user
     w_items = user.watchlist.first().item.all().order_by("-id")
     return render(request, "auctions/watchlist.html", {
-    "list": w_items
+        "list": w_items
     })
 
 
@@ -110,11 +112,11 @@ def notification(request):
         i.seen = True
         i.save()
     return render(request, "auctions/notification.html", {
-    "list": all
+        "list": all
     })
 
 
-def category(request,name="all"):
+def category(request, name="all"):
     categories = [
         {
             "name": "All",
@@ -144,20 +146,21 @@ def category(request,name="all"):
             "name": "Other",
             "icon": "widgets",
         },
-        
-    ]    
+
+    ]
     l = Auction_item.objects.filter(active=True).order_by("-id")
     if name != "all":
         l = Auction_item.objects.filter(category=name)
-    return render(request, "auctions/category.html" , {
-    "list": l,
-    "categories": categories,
-    "name":name
+    return render(request, "auctions/category.html", {
+        "list": l,
+        "categories": categories,
+        "name": name
     })
 
+
 def index(request):
-    return render(request, "auctions/index.html" , {
-    "list":Auction_item.objects.filter(active=True).order_by("-id"),
+    return render(request, "auctions/index.html", {
+        "list": Auction_item.objects.filter(active=True).order_by("-id"),
     })
 
 
