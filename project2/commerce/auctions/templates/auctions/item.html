@@ -7,7 +7,6 @@
         <div class="col s12 m12 l6">
             <div class="empty"></div>
             <img src="{{item.imgurl}}" height="320vw">
-
         </div>
         <div class="col s12 m12 l5 offset-l1">
             <h3 class="mytextcolor">{{ item.name }}
@@ -24,7 +23,6 @@
             </h3>
             <h3 class="price" style="margin-top: 0;"><strong>{{ item.price }} $</strong></h3>
             <p class="flow-text">{{item.about.capitalize}}</p>
-
             <ul>
                 <li>
                     {% load auctions_extras %}
@@ -37,7 +35,7 @@
                 </li>
             </ul>
             {% if item.owner == request.user %}
-            <form method="post">
+            <form action="/item/{{item.id}}" method="post">
                 {% csrf_token %}
                 {% if item.active %}
                 <input type="hidden" name="state" value="unactive">
@@ -63,7 +61,7 @@
             <div class="card-panel center">
                 <h5>{{item.bids.all.count}} bid(s) so far.
                     {% if item.winner == user %}
-                    Your bid (<strong>{{ item.max_bid }} $</strong>) is the current bid</p>
+                    Your bid (<strong>{{ item.max_bid }} $</strong>) is the current bid
                     {% else %}
                     {% if item.max_bid != 0 %}
                     {{item.max_bid}} $ is the current bid (by {{item.winner}})
@@ -72,13 +70,13 @@
                 </h5>
                 {% if item.owner != user %}
                 {% if item.active %}
-                <form method="post">
+                <form method="post" action="/item/{{item.id}}">
                     {% csrf_token %}
                     <div class="input-field">
                         <input type="hidden" name="item" value="{{ item.id }}">
-                        <input type="number" steps="any" placeholder="Place bid">
+                        <input type="number" step="any" min="{{ item.price }}" name="bid_value" placeholder="Place bid">
                     </div>
-                    <input type="submit" value="Place Bid" class="btn mycolor">
+                    <input type="submit" name="bid_btn" class="btn mycolor">
                 </form>
                 {% endif %}
                 {% endif %}
@@ -89,7 +87,7 @@
                 <div class="card-panel center">
                     {% if item.active %}
                     <div class="row">
-                        <form method="post">
+                        <form method="post" action="/item/{{ item.id }}">
                             {% csrf_token %}
                             <div class="input-field col s10">
                                 <input id="comment" name="comment" type="text">
