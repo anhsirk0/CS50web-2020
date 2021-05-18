@@ -31,5 +31,5 @@ Screenshots
 ![categories.png](https://github.com/anhsirk0/CS50web-2020/blob/master/project2/screenshots/categories.png)
 
 # Video
-[Old version](https://www.youtube.com/watch?v=MA_cyelTs7o) Old version (using bootstrap)  
-[Old version](https://www.youtube.com/watch?v=7hyqdiwGjto) Old version (using materialize)
+[Old version using Bootstrap](https://www.youtube.com/watch?v=MA_cyelTs7o)
+[New version using Materialize](https://www.youtube.com/watch?v=7hyqdiwGjto)
